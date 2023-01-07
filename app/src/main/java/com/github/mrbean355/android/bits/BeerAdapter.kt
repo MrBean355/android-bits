@@ -9,7 +9,6 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.item_beer.view.*
 
 class BeerAdapter : ListAdapter<Beer, BeerAdapter.ViewHolder>(DiffCallback()) {
     private val selection = mutableSetOf<Int>()
@@ -23,25 +22,27 @@ class BeerAdapter : ListAdapter<Beer, BeerAdapter.ViewHolder>(DiffCallback()) {
         val item = getItem(position)
         holder.name.text = item.name
         holder.tagLine.text = item.tagLine
-        holder.itemView.setBackgroundColor(if (item.id in selection) {
-            ContextCompat.getColor(holder.itemView.context, R.color.colorSelected)
-        } else {
-            Color.TRANSPARENT
-        })
+        holder.itemView.setBackgroundColor(
+            if (item.id in selection) {
+                ContextCompat.getColor(holder.itemView.context, R.color.colorSelected)
+            } else {
+                Color.TRANSPARENT
+            }
+        )
         holder.itemView.setOnClickListener {
-            val clickedItem = getItem(holder.adapterPosition)
+            val clickedItem = getItem(holder.bindingAdapterPosition)
             if (clickedItem.id in selection) {
                 selection -= clickedItem.id
             } else {
                 selection += clickedItem.id
             }
-            notifyItemChanged(holder.adapterPosition)
+            notifyItemChanged(holder.bindingAdapterPosition)
         }
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val name: TextView = itemView.beer_name
-        val tagLine: TextView = itemView.beer_tag_line
+        val name: TextView = itemView.findViewById(R.id.beer_name)
+        val tagLine: TextView = itemView.findViewById(R.id.beer_tag_line)
     }
 
     class DiffCallback : DiffUtil.ItemCallback<Beer>() {

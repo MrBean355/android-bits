@@ -8,10 +8,10 @@ import retrofit2.create
 import retrofit2.http.GET
 
 data class Beer(
-        val id: Int,
-        val name: String,
-        @SerializedName("tagline")
-        val tagLine: String
+    val id: Int,
+    val name: String,
+    @SerializedName("tagline")
+    val tagLine: String
 )
 
 interface BeerService {
@@ -25,8 +25,8 @@ interface BeerService {
 @Suppress("FunctionName")
 fun BeerService(): BeerService {
     return Retrofit.Builder()
-            .baseUrl("https://api.punkapi.com/v2/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-            .create()
+        .baseUrl("https://api.punkapi.com/v2/")
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
+        .create()
 }

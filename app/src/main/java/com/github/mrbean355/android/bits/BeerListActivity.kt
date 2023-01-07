@@ -8,7 +8,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.DividerItemDecoration.VERTICAL
-import kotlinx.android.synthetic.main.activity_beer_list.*
+import androidx.recyclerview.widget.RecyclerView
 
 class BeerListActivity : AppCompatActivity(R.layout.activity_beer_list) {
     private val viewModel by viewModels<BeerListViewModel>()
@@ -17,8 +17,9 @@ class BeerListActivity : AppCompatActivity(R.layout.activity_beer_list) {
         super.onCreate(savedInstanceState)
 
         val adapter = BeerAdapter()
-        beer_list.adapter = adapter
-        beer_list.addItemDecoration(DividerItemDecoration(this, VERTICAL))
+        val beerList = findViewById<RecyclerView>(R.id.beer_list)
+        beerList.adapter = adapter
+        beerList.addItemDecoration(DividerItemDecoration(this, VERTICAL))
 
         viewModel.initialise()
         viewModel.displayedBeers.observe(this, Observer {
